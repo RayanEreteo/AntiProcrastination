@@ -1,0 +1,17 @@
+{
+    "name":"Anti Procrastination",
+    "version": "1.0.0",
+    "description": "Une extension qui vous empeche de procrastiner.",
+    "manifest_version": 3,
+    "author": "Rayan Ereteo",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Anti Procrastination"
+    },
+    "permissions": [
+        "tabs",
+        "tab",
+        "history"
+      ]
+      
+}
