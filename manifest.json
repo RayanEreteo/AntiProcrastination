@@ -1,17 +1,16 @@
 {
-    "name":"Anti Procrastination",
-    "version": "1.0.0",
-    "description": "Une extension qui vous empeche de procrastiner.",
-    "manifest_version": 3,
-    "author": "Rayan Ereteo",
-    "action": {
-        "default_popup": "index.html",
-        "default_title": "Anti Procrastination"
-    },
-    "permissions": [
-        "tabs",
-        "tab",
-        "history"
-      ]
-      
+  "name": "Anti Procrastination",
+  "version": "1.0.0",
+  "description": "En avez-vous par marre de vous retrouver à regarder des tiktok plutôt que de travailler ? Alors cette extension est faite pour vous. Une fois installer, l'extension bloquera automatiquement tous les sites web distractifs. Une fois votre travail terminé vous aurez juste à désactiver l'extension dans les paramètres chrome.",
+  "manifest_version": 3,
+  "author": "Rayan Ereteo",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Anti Procrastination"
+  },
+  "permissions": ["tabs", "history"],
+  "background": {
+    "service_worker": "app.js",
+    "type": "module"
+  }
 }

@@ -1,36 +1,30 @@
-const BUTTON = document.getElementById("switch-block-button");
+const forbiddenWebsites = [
+  /youtube\.com\/(.*)/,
+  /twitter\.com\/(.*)/,
+  /instagram\.com\/(.*)/,
+  /tiktok\.com\/(.*)/,
+  /facebook\.com\/(.*)/,
+];
 
-let currentlyBlocking = false;
+function check(){
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    let currentTab = tabs[0];
+    let currentUrl = currentTab.url;
 
-let forbiddenWebsites = ['https://www.youtube.com/'];
-
-BUTTON.addEventListener("click", () => {
-  currentlyBlocking = !currentlyBlocking;
-
-  switch (currentlyBlocking) {
-    case false:
-      BUTTON.innerHTML = "Bloquer";
-      break;
-
-    case true:
-      BUTTON.innerHTML = "Débloquer";
-      break;
-
-    default:
-      break;
-  }
-});
-
-setInterval(() => {
-  if (currentlyBlocking) {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      let currentTab = tabs[0];
-      let currentUrl = currentTab.url;
-      let currentTabId = currentTab.id;
-
-      if (forbiddenWebsites.includes(currentUrl)) {
-        chrome.tabs.remove(currentTabId);
+    for (let i = 0; i < forbiddenWebsites.length; i++) {
+      if (forbiddenWebsites[i].test(currentUrl)) {
+        chrome.tabs.update({url: './block_page.html'})
+        break;
       }
-    });
-  }
-}, 1000);
+    }
+  });
+}
+function start() {
+  setInterval(check, 1000); 
+}
+
+chrome.runtime.onStartup.addListener(function() {
+  start();
+})
+
+start();

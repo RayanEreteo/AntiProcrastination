@@ -1,0 +1,12 @@
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    top: 20vh;
+}
+
+h1, p{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
