@@ -5,12 +5,12 @@
   "manifest_version": 3,
   "author": "Rayan Ereteo",
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "popup.html",
     "default_title": "Anti Procrastination"
   },
   "permissions": ["tabs", "history"],
   "background": {
-    "service_worker": "app.js",
+    "service_worker": "background.js",
     "type": "module"
   }
 }
