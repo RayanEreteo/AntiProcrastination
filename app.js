@@ -6,6 +6,8 @@ const forbiddenWebsites = [
   /facebook\.com\/(.*)/,
 ];
 
+let shouldBlock = true
+
 function check(){
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     let currentTab = tabs[0];
@@ -20,7 +22,9 @@ function check(){
   });
 }
 function start() {
-  setInterval(check, 1000); 
+  if (shouldBlock) {
+    setInterval(check, 1000);     
+  }
 }
 
 chrome.runtime.onStartup.addListener(function() {
