@@ -20,7 +20,8 @@ input{
 button{
     margin-bottom: 5px;
     background: darkblue;
-    border-radius: 20px;
+    color: white;
+    border-radius: 10px;
     padding: 10px;
     transition: 0.5s all;
 }
@@ -28,4 +29,5 @@ button{
 button:hover{
     cursor: pointer;
     background: white;
+    color: black;
 }
