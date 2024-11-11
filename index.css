@@ -10,3 +10,22 @@
 h1, p{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+input{
+    margin-bottom: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+button{
+    margin-bottom: 5px;
+    background: darkblue;
+    border-radius: 20px;
+    padding: 10px;
+    transition: 0.5s all;
+}
+
+button:hover{
+    cursor: pointer;
+    background: white;
+}
