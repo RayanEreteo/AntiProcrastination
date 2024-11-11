@@ -6,9 +6,11 @@
     <title>Anti Procrastination</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="main-body">
     <div class="main-container" style="width: 300px;">
-        <p>Les sites web distractif sont maintenant bloqués.</p>
+        <label for="should-block">Blocker les sites web.</label>
+        <input type="checkbox" name="should-block" id="should-block">
+        <p id="block-status">Les sites web distractif sont maintenant bloqués.</p>
         <input type="text" class="website-input" placeholder="Entrer le site web que vous voulez bloqué...">
         <button class="block-button">Ajouter a la liste noire</button>
     </div>
