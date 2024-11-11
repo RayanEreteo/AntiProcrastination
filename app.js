@@ -8,6 +8,11 @@ const forbiddenWebsites = [
 
 let shouldBlock = true
 
+let blockStatusText = document.querySelector("#block-status")
+let shouldBlockCheck = document.querySelector("#should-block")
+
+shouldBlockCheck.addEventListener("change", statusChange)
+
 function check(){
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     let currentTab = tabs[0];
@@ -21,6 +26,7 @@ function check(){
     }
   });
 }
+
 function start() {
   if (shouldBlock) {
     setInterval(check, 1000);     
@@ -30,5 +36,9 @@ function start() {
 chrome.runtime.onStartup.addListener(function() {
   start();
 })
-
 start();
+
+// Fonction evenementiel
+function statusChange(e){
+  console.log("ff")
+}
