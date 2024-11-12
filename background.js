@@ -7,6 +7,9 @@ const forbiddenWebsites = [
 ];
 
 let shouldBlock = true;
+updateLocalStorage();
+
+
 
 function check() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -34,6 +37,13 @@ start();
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "toggleBlock") {
     shouldBlock = message.shouldBlock;
+    updateLocalStorage();
     console.log(shouldBlock);
   }
 });
+
+function updateLocalStorage(){
+  chrome.storage.local.set({ key: shouldBlock}, function () {
+    console.log('Value is set to : ' + shouldBlock);
+  });
+}
