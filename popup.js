@@ -3,8 +3,6 @@ let blockCheckbox = document.querySelector("#should-block");
 let checked = true;
 
 chrome.storage.local.get(["key"], (result) => {
-  console.log(result.key);
-  
   checked = result.key;
   
   blockCheckbox.checked = checked;
