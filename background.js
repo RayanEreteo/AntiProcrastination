@@ -1,4 +1,3 @@
-// liste des sites web interdit
 const forbiddenWebsites = [
   /youtube\.com\/(.*)/,
   /twitter\.com\/(.*)/,
@@ -7,39 +6,42 @@ const forbiddenWebsites = [
   /facebook\.com\/(.*)/,
 ];
 
-// creation de la variable should block et appel de la fonction update pour mettre a jour le local storage directement.
-let shouldBlock = true
-
-
-// verifie si l'utilisateur est sur un site web bloque, si oui on redirige.
+// Verifies if the user is on a blocked website; if so, redirects.
 function check() {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    let currentTab = tabs[0];
-    let currentUrl = currentTab.url;
+  // Get the current "key" value from chrome.storage each time check() is called
+  chrome.storage.local.get(["key"], (result) => {
+    console.log(result.key);
+    if (result.key === true) {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        let currentTab = tabs[0];
+        let currentUrl = currentTab.url;
 
-    for (let i = 0; i < forbiddenWebsites.length; i++) {
-      if (forbiddenWebsites[i].test(currentUrl)) {
-        chrome.tabs.update({ url: './block_page.html' })
-        break;
-      }
+        for (let i = 0; i < forbiddenWebsites.length; i++) {
+          if (forbiddenWebsites[i].test(currentUrl)) {
+            chrome.tabs.update({ url: './block_page.html' });
+            break;
+          }
+        }
+      });
     }
   });
 }
 
-// commence le timer infinie pour appeller "check".
-function start() {
-  setInterval(check, 1000);
-}
+// Run check() when the active tab changes
+chrome.tabs.onActivated.addListener(() => {
+  check();
+});
 
+// Run check() when the URL of a tab is updated
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+    check();
+  }
+});
 
-chrome.runtime.onStartup.addListener(function () {
-  start();
-})
-start();
-
-//recois le message du popup si l'utilisateur change l'etat de la checkbox.
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "toggleBlock") {
-    //
+// Listen for changes in chrome.storage and rerun check if "key" changes
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === "local" && changes.key) {
+    check();
   }
 });
