@@ -1,6 +1,8 @@
-let blockStatusText = document.querySelector("#block-status");
 let blockCheckbox = document.querySelector("#should-block");
-let checked = true;
+let input = document.querySelector("#website-input");
+let button = document.querySelector("#block-button")
+
+button.addEventListener("click", buttonTest)
 
 chrome.storage.local.get(["key"], (result) => {
   checked = result.key;
@@ -10,6 +12,7 @@ chrome.storage.local.get(["key"], (result) => {
   if(blockCheckbox){
     blockCheckbox.addEventListener("change", (e) => {
       chrome.runtime.sendMessage({ action: "toggleBlock", shouldBlock: result.key });
+
       updateLocalStorage()
     });
   }
@@ -19,4 +22,8 @@ function updateLocalStorage(){
   chrome.storage.local.set({ key: blockCheckbox.checked}, function () {
     console.log('Value is set to : ' + blockCheckbox.checked);
   });
+}
+
+function buttonTest() {
+  chrome.runtime.sendMessage({url: "youtube.com"})
 }
