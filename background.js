@@ -1,7 +1,7 @@
 const forbiddenWebsites = [
 ];
 
-// Vérifie si l'utilisateur se trouve sur un site Web bloqué ; si c'est le cas, redirige.
+// Verifies if the user is on a blocked website; if so, redirects.
 function check() {
   // Get the current "key" value from chrome.storage each time check() is called
   chrome.storage.local.get(["key"], (result) => {
@@ -22,19 +22,19 @@ function check() {
   });
 }
 
-// Exécutez check() lorsque l'onglet actif change
+// Run check() when the active tab changes
 chrome.tabs.onActivated.addListener(() => {
   check();
 });
 
-// Exécutez check() lorsque l'URL d'un onglet est mise à jour
+// Run check() when the URL of a tab is updated
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.url) {
     check();
   }
 });
 
-// Écoutez les modifications dans chrome.storage et réexécutez pour vérifier si la "clé" change
+// Listen for changes in chrome.storage and rerun check if "key" changes
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === "local" && changes.key) {
     check();
@@ -42,12 +42,12 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  const url = request.url;
-  const escapedUrl = url.replace(/[.*+?^=!:${}()|\[\]\/\\]/g, '\\$&'); // Escapes special regex characters
+  console.log(forbiddenWebsites);
   
-  // Crée une regex qui correspond au domaine complet (début de la chaîne)
-  const regex = new RegExp('^https?://(?:www\\.)?' + escapedUrl);  // Match "http://youtube.com" or "https://youtube.com"
+  const url = request.url
+
+  const regex = RegExp(url)
+
+  forbiddenWebsites.push(regex)
   
-  forbiddenWebsites.push(regex); // Push au tableau des sites interdit
-  console.log(regex);
-});
+})
