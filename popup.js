@@ -2,7 +2,7 @@ let blockCheckbox = document.querySelector("#should-block");
 let input = document.querySelector("#website-input");
 let button = document.querySelector("#block-button")
 
-button.addEventListener("click", buttonTest)
+button.addEventListener("click", addWebsite)
 
 chrome.storage.local.get(["key"], (result) => {
   checked = result.key;
@@ -11,8 +11,6 @@ chrome.storage.local.get(["key"], (result) => {
   
   if(blockCheckbox){
     blockCheckbox.addEventListener("change", (e) => {
-      chrome.runtime.sendMessage({ action: "toggleBlock", shouldBlock: result.key });
-
       updateLocalStorage()
     });
   }
