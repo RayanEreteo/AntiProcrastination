@@ -24,6 +24,6 @@ function updateLocalStorage(){
   });
 }
 
-function buttonTest() {
+function addWebsite() {
   chrome.runtime.sendMessage({url: "youtube.com"})
 }
