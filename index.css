@@ -35,3 +35,8 @@ button:hover{
     background: white;
     color: black;
 }
+
+#websites-list{
+    display: flex;
+    flex-direction: column;
+}
