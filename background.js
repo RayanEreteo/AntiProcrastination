@@ -45,6 +45,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const url = request.url
 
   if (url == "" || url == undefined || url == null) return console.log("no input")
+  if (!url.includes(".com")) return console.log("No website");
 
   const regex = RegExp(url)
 
