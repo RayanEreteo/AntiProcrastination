@@ -42,12 +42,13 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log(forbiddenWebsites);
-  
   const url = request.url
+
+  if (url == "" || url == undefined || url == null) return console.log("no input")
 
   const regex = RegExp(url)
 
   forbiddenWebsites.push(regex)
   
+  console.log("Inserted : " + regex);
 })
