@@ -1,5 +1,4 @@
-const forbiddenWebsites = [
-];
+const forbiddenWebsites = [];
 
 // Verifies if the user is on a blocked website; if so, redirects.
 function check() {
