@@ -1,6 +1,9 @@
 let blockCheckbox = document.querySelector("#should-block");
 let input = document.querySelector("#website-input");
 let button = document.querySelector("#block-button")
+let websitesList = document.querySelector("#websites-list")
+
+const forbiddenWebsites = ["youtube.com", "facebook.com"];
 
 button.addEventListener("click", addWebsite)
 
@@ -23,5 +26,16 @@ function updateLocalStorage(){
 
 function addWebsite() {
   chrome.runtime.sendMessage({url: input.value})
+  updateWebsitesList()
   input.value = ""
+}
+
+function updateWebsitesList(){
+  for (let i = 0; i < forbiddenWebsites.length; i++) {
+    let p = document.createElement("p")
+
+    p.innerText = forbiddenWebsites[i]
+
+    websitesList.append(p)
+  }
 }
