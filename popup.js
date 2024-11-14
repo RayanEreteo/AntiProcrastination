@@ -6,7 +6,6 @@ button.addEventListener("click", addWebsite)
 
 chrome.storage.local.get(["key"], (result) => {
   checked = result.key;
-  
   blockCheckbox.checked = checked;
   
   if(blockCheckbox){
@@ -23,5 +22,6 @@ function updateLocalStorage(){
 }
 
 function addWebsite() {
-  chrome.runtime.sendMessage({url: "youtube.com"})
+  chrome.runtime.sendMessage({url: input.value})
+  input.value = ""
 }
