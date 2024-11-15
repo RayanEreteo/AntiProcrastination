@@ -11,6 +11,11 @@
     top: 20vh;
 }
 
+.website-layout{
+    display: flex;
+    flex-direction: row;
+}
+
 h1, p{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -21,7 +26,7 @@ input{
     width: 300px;
 }
 
-button{
+.block-button{
     margin-bottom: 5px;
     background: darkblue;
     color: white;
@@ -30,7 +35,7 @@ button{
     transition: 0.5s all;
 }
 
-button:hover{
+.block-button:hover{
     cursor: pointer;
     background: white;
     color: black;
