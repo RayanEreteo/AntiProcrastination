@@ -1,4 +1,13 @@
-const forbiddenWebsites = [];
+let forbiddenWebsites = [];
+
+chrome.storage.local.get(["websites"], (result) => {
+  const storageWebsitesList = JSON.parse(result.websites)
+
+  for (let i = 0; i < storageWebsitesList.length; i++) {
+    const regex = RegExp(storageWebsitesList[i])
+    forbiddenWebsites.push(regex)
+  }
+});
 
 // Verifies if the user is on a blocked website; if so, redirects.
 function check() {
