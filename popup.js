@@ -51,10 +51,19 @@ function addWebsite() {
 }
 
 function updateWebsitesList(url){
-    let p = document.createElement("p")
+    let container = document.createElement("div")
+    container.className = "website-layout"
 
+    let p = document.createElement("p")
     p.innerText = url
-    websitesList.append(p)
+
+    let deleteButton = document.createElement("button")
+    deleteButton.textContent = "effacer"
+
+
+    container.appendChild(p)
+    container.appendChild(deleteButton)
+    websitesList.append(container)
 }
 
 
