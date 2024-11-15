@@ -24,6 +24,11 @@ function updateLocalStorage(){
 }
 
 function addWebsite() {
+  const url = input.value
+
+  if (url == "" || url == undefined || url == null) return console.log("no input")
+  if (!url.includes(".com")) return console.log("No website");
+
   chrome.runtime.sendMessage({url: input.value})
   updateWebsitesList()
   input.value = ""
