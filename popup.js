@@ -3,7 +3,7 @@ let input = document.querySelector("#website-input");
 let button = document.querySelector("#block-button")
 let websitesList = document.querySelector("#websites-list")
 
-const forbiddenWebsites = ["youtube.com", "facebook.com"];
+const forbiddenWebsites = [];
 
 button.addEventListener("click", addWebsite)
 
@@ -18,7 +18,7 @@ chrome.storage.local.get(["key"], (result) => {
 });
 
 function updateLocalStorage(){
-  chrome.storage.local.set({ key: blockCheckbox.checked}, function () {
+  chrome.storage.local.set({ key: blockCheckbox.checked}, () => {
     console.log('Value is set to : ' + blockCheckbox.checked);
   });
 }
@@ -30,16 +30,21 @@ function addWebsite() {
   if (!url.includes(".com")) return console.log("No website");
 
   chrome.runtime.sendMessage({url: input.value})
-  updateWebsitesList()
+  forbiddenWebsites.push(url)
+  chrome.storage.local.set({websites: JSON.stringify(forbiddenWebsites)}, () => {
+    console.log("websites : " + JSON.stringify(forbiddenWebsites));
+  })
+  chrome.storage.local.get(["websites"], (result) => {
+    console.log(result);
+  })
+  updateWebsitesList(url)
   input.value = ""
 }
 
-function updateWebsitesList(){
-  for (let i = 0; i < forbiddenWebsites.length; i++) {
+function updateWebsitesList(url){
     let p = document.createElement("p")
-
-    p.innerText = forbiddenWebsites[i]
+    
+    p.innerText = url
 
     websitesList.append(p)
-  }
 }
