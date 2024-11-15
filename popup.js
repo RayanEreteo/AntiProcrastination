@@ -8,8 +8,7 @@ const forbiddenWebsites = ["youtube.com", "facebook.com"];
 button.addEventListener("click", addWebsite)
 
 chrome.storage.local.get(["key"], (result) => {
-  checked = result.key;
-  blockCheckbox.checked = checked;
+  blockCheckbox.checked = result.key;
   
   if(blockCheckbox){
     blockCheckbox.addEventListener("change", (e) => {
