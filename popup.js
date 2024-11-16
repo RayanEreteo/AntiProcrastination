@@ -59,6 +59,7 @@ function updateWebsitesList(url){
 
     let deleteButton = document.createElement("button")
     deleteButton.textContent = "effacer"
+    deleteButton.onclick = clearSingleWebsite
 
 
     container.appendChild(p)
@@ -68,7 +69,7 @@ function updateWebsitesList(url){
 
 
 function clearSingleWebsite(){
- //? A faire
+ console.log("test");
 }
 
 
