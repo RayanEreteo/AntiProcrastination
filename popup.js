@@ -5,16 +5,30 @@ let websitesList = document.querySelector("#websites-list")
 
 let forbiddenWebsites = [];
 
+
+//clearAllWebsitesStorage()
+
 button.addEventListener("click", addWebsite)
 
 chrome.storage.local.get(["websites"], (result) => {
   forbiddenWebsites = JSON.parse(result.websites)
 
   for (let i = 0; i < forbiddenWebsites.length; i++) {
-    let p = document.createElement("p")
+    let container = document.createElement("div")
+    container.className = "website-layout"
 
+    let p = document.createElement("p")
+    p.id = forbiddenWebsites[i]
     p.innerText = forbiddenWebsites[i]
-    websitesList.append(p)
+
+    let deleteButton = document.createElement("button")
+    deleteButton.textContent = "effacer"
+    deleteButton.onclick = () => clearSingleWebsite(p.id)
+
+
+    container.appendChild(p)
+    container.appendChild(deleteButton)
+    websitesList.append(container)
   }
 });
 
@@ -55,11 +69,12 @@ function updateWebsitesList(url){
     container.className = "website-layout"
 
     let p = document.createElement("p")
+    p.id = url
     p.innerText = url
 
     let deleteButton = document.createElement("button")
     deleteButton.textContent = "effacer"
-    deleteButton.onclick = clearSingleWebsite
+    deleteButton.onclick = () => clearSingleWebsite(p.id)
 
 
     container.appendChild(p)
@@ -68,8 +83,18 @@ function updateWebsitesList(url){
 }
 
 
-function clearSingleWebsite(){
- console.log("test");
+function clearSingleWebsite(id){
+ if (forbiddenWebsites.includes(id)) {
+  const filteredArr = forbiddenWebsites.filter((val, index) => {
+    return val != id
+  })
+
+  forbiddenWebsites = filteredArr
+
+  chrome.storage.local.set({websites: JSON.stringify(forbiddenWebsites)}, () => {
+    console.log("websites : " + JSON.stringify(forbiddenWebsites));
+  })
+ }
 }
 
 
