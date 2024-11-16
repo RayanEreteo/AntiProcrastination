@@ -1,13 +1,18 @@
 let forbiddenWebsites = [];
 
-chrome.storage.local.get(["websites"], (result) => {
-  const storageWebsitesList = JSON.parse(result.websites)
+function fetchLocalStorageWebsitesList(){
+  chrome.storage.local.get(["websites"], (result) => {
+    forbiddenWebsites = []
+    const storageWebsitesList = JSON.parse(result.websites)
+  
+    for (let i = 0; i < storageWebsitesList.length; i++) {
+      const regex = RegExp(storageWebsitesList[i])
+      forbiddenWebsites.push(regex)
+    }
+  });
+}
 
-  for (let i = 0; i < storageWebsitesList.length; i++) {
-    const regex = RegExp(storageWebsitesList[i])
-    forbiddenWebsites.push(regex)
-  }
-});
+fetchLocalStorageWebsitesList()
 
 // Verifies if the user is on a blocked website; if so, redirects.
 function check() {
@@ -45,6 +50,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 // Listen for changes in chrome.storage and rerun check if "key" changes
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === "local" && changes.key) {
+    fetchLocalStorageWebsitesList()
     check();
   }
 });
