@@ -11,21 +11,7 @@ chrome.storage.local.get(["websites"], (result) => {
   forbiddenWebsites = JSON.parse(result.websites)
 
   for (let i = 0; i < forbiddenWebsites.length; i++) {
-    let container = document.createElement("div")
-    container.className = "website-layout"
-    container.id = forbiddenWebsites[i]
-
-    let p = document.createElement("p")
-    p.innerText = forbiddenWebsites[i]
-
-    let deleteButton = document.createElement("button")
-    deleteButton.textContent = "effacer"
-    deleteButton.onclick = () => clearSingleWebsite(container.id)
-
-
-    container.appendChild(p)
-    container.appendChild(deleteButton)
-    websitesList.append(container)
+    updateWebsitesList(forbiddenWebsites[i])
   }
 });
 
@@ -93,6 +79,5 @@ function clearSingleWebsite(id) {
     })
 
     document.getElementById(id).remove();
-
   }
 }
