@@ -53,9 +53,11 @@ function updateWebsitesList(url) {
   container.id = url
 
   let p = document.createElement("p")
+  p.className = "website-layout-text"
   p.innerText = url
 
   let deleteButton = document.createElement("button")
+  deleteButton.className = "website-layout-button"
   deleteButton.textContent = "effacer"
   deleteButton.onclick = () => clearSingleWebsite(container.id)
 
