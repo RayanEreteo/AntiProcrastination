@@ -1,8 +1,20 @@
 .main-body{
-    background-color: wheat;
+    background-color: #028abf;
+    width: 400px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-container-block-page{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,6 +51,25 @@ input{
     cursor: pointer;
     background: white;
     color: black;
+}
+
+.website-layout{
+    color: white;
+}
+
+.website-layout-text{
+    margin-right: 2rem;
+}
+
+.website-layout-button{
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.website-layout-button:hover{
+    cursor: pointer;
 }
 
 #websites-list{
