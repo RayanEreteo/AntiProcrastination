@@ -1,7 +1,7 @@
 {
   "name": "Anti Procrastination",
   "version": "1.0.0",
-  "description": "En avez-vous par marre de vous retrouver à regarder des tiktok ou naviguer twitter plutôt que de travailler ? Alors cette extension est faite pour vous. Une fois installer, l'extension bloquera automatiquement tous les sites web distractifs. Une fois votre travail terminé vous aurez juste à désactiver l'extension dans les paramètres chrome.",
+  "description": "Retrouvez-vous à regarder des TikTok ou naviguer sur Twitter plutôt que de travailler ? Alors, cette extension est faite pour vous. Une fois installée, l'extension bloquera automatiquement les sites web ajoutés à la liste. Une fois votre travail terminé, vous aurez juste à supprimer les sites web voulus de la liste.",
   "manifest_version": 3,
   "author": "Rayan Ereteo",
   "icons": {
