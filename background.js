@@ -6,7 +6,7 @@ function fetchLocalStorageWebsitesList(){
     const storageWebsitesList = JSON.parse(result.websites)
   
     for (let i = 0; i < storageWebsitesList.length; i++) {
-      const regex = RegExp(`(^|\\.)${storageWebsitesList[i].replace('.', '\\.')}$`)
+      const regex = RegExp(storageWebsitesList[i])
       forbiddenWebsites.push(regex)
     }
   });
@@ -25,7 +25,7 @@ function check() {
         let currentUrl = currentTab.url;
 
         for (let i = 0; i < forbiddenWebsites.length; i++) {
-          if (forbiddenWebsites[i].match(currentUrl)) {
+          if (forbiddenWebsites[i].test(currentUrl)) {
             chrome.tabs.update({ url: './block_page.html' });
             break;
           }
