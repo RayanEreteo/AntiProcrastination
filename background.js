@@ -6,7 +6,7 @@ function fetchLocalStorageWebsitesList(){
     const storageWebsitesList = JSON.parse(result.websites)
   
     for (let i = 0; i < storageWebsitesList.length; i++) {
-      const regex = RegExp(storageWebsitesList[i])
+      const regex = new RegExp(storageWebsitesList[i]);
       forbiddenWebsites.push(regex)
     }
   });
@@ -18,7 +18,6 @@ fetchLocalStorageWebsitesList()
 function check() {
   // Get the current "key" value from chrome.storage each time check() is called
   chrome.storage.local.get(["key"], (result) => {
-    console.log(result.key);
     if (result.key === true) {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         let currentTab = tabs[0];
@@ -60,6 +59,4 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const regex = RegExp(url)
 
   forbiddenWebsites.push(regex)
-  
-  console.log("Inserted : " + regex);
 })
