@@ -3,6 +3,7 @@ let input = document.querySelector("#website-input");
 let button = document.querySelector("#block-button")
 let websitesList = document.querySelector("#websites-list")
 
+// Liste contenant les sites web du localStorage
 let forbiddenWebsites = [];
 
 button.addEventListener("click", addWebsite)
