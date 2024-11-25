@@ -33,9 +33,16 @@ h1, p{
 }
 
 input{
+    transition: border 500ms ease-out;
     margin-bottom: 10px;
     text-align: center;
     width: 300px;
+    outline: none;
+    border: none;
+}
+
+input:focus{
+    border: cyan solid 1px;
 }
 
 .block-button{
@@ -43,8 +50,10 @@ input{
     background: darkblue;
     color: white;
     border-radius: 10px;
+    border: none;
     padding: 10px;
     transition: 0.5s all;
+    font-weight: bolder;
 }
 
 .block-button:hover{
