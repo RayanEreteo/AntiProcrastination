@@ -3,11 +3,12 @@ let input = document.querySelector("#website-input");
 let button = document.querySelector("#block-button")
 let websitesList = document.querySelector("#websites-list")
 
-// Liste contenant les sites web du localStorage
+// Liste contenant les sites web du localStorage.
 let forbiddenWebsites = [];
 
 button.addEventListener("click", addWebsite)
 
+// Récupération des sites web interdits dans le localStorage et met a jour la liste visuel.
 chrome.storage.local.get(["websites"], (result) => {
   forbiddenWebsites = JSON.parse(result.websites)
 
@@ -16,14 +17,14 @@ chrome.storage.local.get(["websites"], (result) => {
   }
 });
 
+// Récupération de la valeur de la checkbox dans le localStorage et coche la checkbox en fonction du resultat.
 chrome.storage.local.get(["key"], (result) => {
   blockCheckbox.checked = result.key;
 
-  if (blockCheckbox) {
-    blockCheckbox.addEventListener("change", (e) => {
-      updateLocalStorage()
-    });
-  }
+  // Mets a jour la valeur "key" dans le localStorage en cas de changement de la checkbox
+  blockCheckbox.addEventListener("change", (e) => {
+    updateLocalStorage()
+  });
 });
 
 function updateLocalStorage() {
