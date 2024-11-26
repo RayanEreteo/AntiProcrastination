@@ -56,7 +56,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const url = request.url
-  const regex = RegExp(url)
+  const regex = new RegExp(url)
 
   forbiddenWebsites.push(regex)
 })
