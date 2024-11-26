@@ -3,12 +3,14 @@ let input = document.querySelector("#website-input");
 let button = document.querySelector("#block-button")
 let websitesList = document.querySelector("#websites-list")
 
+//? "Liste visuelle" fait référence au conteneur de tous les sites web sur le popup.
+
 // Liste contenant les sites web du localStorage.
 let forbiddenWebsites = [];
 
 button.addEventListener("click", addWebsite)
 
-// Récupération des sites web interdits dans le localStorage et met a jour la liste visuel.
+// Récupération des sites web interdits dans le localStorage et met à jour la liste visuelle.
 chrome.storage.local.get(["websites"], (result) => {
   forbiddenWebsites = JSON.parse(result.websites)
 
@@ -17,22 +19,21 @@ chrome.storage.local.get(["websites"], (result) => {
   }
 });
 
-// Récupération de la valeur de la checkbox dans le localStorage et coche la checkbox en fonction du resultat.
+// Récupération de la valeur de la checkbox dans le localStorage et coche la checkbox en fonction du résultat.
 chrome.storage.local.get(["key"], (result) => {
   blockCheckbox.checked = result.key;
 
-  // Mets a jour la valeur "key" dans le localStorage en cas de changement de la checkbox
+  // Mets à jour la valeur "key" dans le localStorage en cas de changement de la checkbox
   blockCheckbox.addEventListener("change", (e) => {
-    updateLocalStorage()
+    chrome.storage.local.set({ key: blockCheckbox.checked }, () => {
+      console.log('Value is set to : ' + blockCheckbox.checked);
+    });
   });
 });
 
-function updateLocalStorage() {
-  chrome.storage.local.set({ key: blockCheckbox.checked }, () => {
-    console.log('Value is set to : ' + blockCheckbox.checked);
-  });
-}
-
+/**
+ * Ajoute un site web au localStorage et à la liste visuelle.
+ */
 function addWebsite() {
   const url = input.value
 
@@ -49,6 +50,10 @@ function addWebsite() {
   input.value = ""
 }
 
+/**
+ * Mets à jour la liste visuels.
+ * @param {String} url
+ */
 function updateWebsitesList(url) {
   let container = document.createElement("div")
   container.className = "website-layout"
@@ -69,7 +74,10 @@ function updateWebsitesList(url) {
   websitesList.append(container)
 }
 
-
+/**
+ * Retire un site web du localStorage et de la liste visuel.
+ * @param {String} id l'ID du div du site web a retirer.
+ */
 function clearSingleWebsite(id) {
   if (forbiddenWebsites.includes(id)) {
     const filteredArr = forbiddenWebsites.filter((val, index) => {
