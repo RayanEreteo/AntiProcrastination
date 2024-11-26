@@ -1,5 +1,9 @@
+// Liste contenant les regex des sites web interdits du localStorage.
 let forbiddenWebsites = [];
 
+/**
+ * Récupère la liste de sites web dans le localStorage, les convertis en objet, crée un regex basé sur chaque site web et les insère dans la liste de sites web interdits.
+ */
 function fetchLocalStorageWebsitesList(){
   chrome.storage.local.get(["websites"], (result) => {
     forbiddenWebsites = []
@@ -14,9 +18,10 @@ function fetchLocalStorageWebsitesList(){
 
 fetchLocalStorageWebsitesList()
 
-// Verifies if the user is on a blocked website; if so, redirects.
+/**
+ * Vérifie si l'utilisateur se trouve sur un site web bloqué. Si c'est le cas, on redirige vers la block page.
+ */
 function check() {
-  // Get the current "key" value from chrome.storage each time check() is called
   chrome.storage.local.get(["key"], (result) => {
     if (result.key === true) {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -34,29 +39,22 @@ function check() {
   });
 }
 
-// Run check() when the active tab changes
+// Exécute check() lorsque l'onglet actif change
 chrome.tabs.onActivated.addListener(() => {
   check();
 });
 
-// Run check() when the URL of a tab is updated
+// Exécute check() lorsque l'URL d'un onglet est mise à jour
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.url) {
     check();
   }
 });
 
-// Listen for changes in chrome.storage and rerun check if "key" changes
+// Écoute les modifications dans chrome.storage et exécute ffetchLocalStorageWebsitesList() et check()
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === "local" && changes.key) {
     fetchLocalStorageWebsitesList()
     check();
   }
 });
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  const url = request.url
-  const regex = new RegExp(url)
-
-  forbiddenWebsites.push(regex)
-})
