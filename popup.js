@@ -40,7 +40,6 @@ function addWebsite() {
   if (url == "" || url == undefined || url == null) return console.log("no input")
   if (!url.includes(".com")) return console.log("No website");
 
-  chrome.runtime.sendMessage({ url: input.value })
   forbiddenWebsites.push(url)
   chrome.storage.local.set({ websites: JSON.stringify(forbiddenWebsites) }, () => {
     console.log("websites : " + JSON.stringify(forbiddenWebsites));
